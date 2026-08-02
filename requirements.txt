@@ -1,0 +1,2 @@
+# Raspberry Pi OS installs python3-smbus; this is an optional fallback.
+smbus2>=0.5,<1

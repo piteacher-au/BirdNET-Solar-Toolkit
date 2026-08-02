@@ -1,0 +1,16 @@
+[Unit]
+Description=BirdNET Solar Toolkit UPS HAT (B) battery logger
+After=multi-user.target
+
+[Service]
+Type=simple
+User=birdnet
+Group=birdnet
+SupplementaryGroups=i2c
+WorkingDirectory=/opt/birdnet-solar-toolkit/ups_hat_b
+ExecStart=/usr/bin/python3 /opt/birdnet-solar-toolkit/ups_hat_b/logger.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -16,6 +16,14 @@ curl -fsSL https://raw.githubusercontent.com/piteacher-au/BirdNET-Solar-Toolkit/
 
 The installer installs all required system packages (`git`, `python3`, `python3-smbus`, and `i2c-tools`), obtains this repository under `/opt/birdnet-solar-toolkit`, enables IÂ²C, and starts the `birdnet-ups-logger` service.
 
+### Pi 5 low-battery shutdown and RTC wake
+
+On a Raspberry Pi 5, the installer also starts a protection policy. At **20% battery** it arms the next **6:00 am** Pi RTC alarm, then performs a clean shutdown. A 30-minute grace period after boot prevents an immediate repeat shutdown while the station begins charging.
+
+On a Raspberry Pi 5, the installer applies the required RTC wake firmware settings automatically. Reboot the Pi once after installation to activate them.
+
+The station must remain powered from its UPS while it is shut down. The optional Pi RTC backup battery is recommended to retain the clock during a complete loss of main power.
+
 ### Verify it
 
 ```bash
@@ -54,9 +62,8 @@ See [UPS HAT (B) deployment and troubleshooting](docs/ups-hat-b.md) for the CSV 
 
 ## Roadmap
 
-- RTC wake and scheduled shutdown configuration
 - BirdNET-Pi service integration
-- Battery protection policy and deployment diagnostics
+- Deployment diagnostics
 
 ## License
 

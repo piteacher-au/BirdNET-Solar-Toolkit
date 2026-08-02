@@ -20,3 +20,13 @@ tail -f /var/log/birdnet-solar-toolkit/battery_logs/battery_$(date +%F).csv
 ```
 
 The I²C scan should show `42`. If it appears on another bus or address, edit the service `ExecStart` to add `--i2c-bus` or `--i2c-address`, then restart the service.
+
+## Export BirdNET-Pi detections to USB
+
+After running the installer, insert a writable USB drive and run:
+
+```bash
+export-birdnet-detections
+```
+
+The script finds BirdNET-Pi's `birds.db`, makes a consistent SQLite backup, and exports its `detections` table as CSV. Both files are saved under `Logan_City_Council/<station name>/` on the USB drive.

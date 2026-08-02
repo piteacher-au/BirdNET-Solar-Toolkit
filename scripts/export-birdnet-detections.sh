@@ -14,6 +14,7 @@ find_database() {
   local candidate
   for candidate in \
     "$HOME/BirdNET-Pi/scripts/birds.db" \
+    "/home/piteacher/BirdNET-Pi/scripts/birds.db" \
     "/home/pi/BirdNET-Pi/scripts/birds.db" \
     "/home/birdnet/BirdNET-Pi/scripts/birds.db"; do
     [[ -f "$candidate" ]] && { printf '%s\n' "$candidate"; return 0; }
@@ -40,14 +41,18 @@ DATABASE="$(find_database)" || {
 
 if [[ -z "$DESTINATION" ]]; then
   DESTINATION="$(find_usb)" || {
-    echo "No writable USB drive found. Insert the labelled USB drive and try again." >&2
+    echo "No writable USB drive found." >&2
+    echo "Insert a blank USB drive formatted as FAT32, then try again." >&2
+    echo "If the drive is not mounted automatically, mount it at /mnt/birdnet-usb and run:" >&2
+    echo "  export-birdnet-detections --usb-dir=/mnt/birdnet-usb" >&2
     exit 1
   }
 fi
 
 [[ -d "$DESTINATION" && -w "$DESTINATION" ]] || {
-  echo "USB destination is not writable: $DESTINATION" >&2
-  exit 1
+    echo "USB destination is not writable: $DESTINATION" >&2
+    echo "Use a blank FAT32-formatted USB drive mounted for the current user." >&2
+    exit 1
 }
 
 SITE_NAME="$(awk -F= '/^[[:space:]]*SITE_NAME[[:space:]]*=/{gsub(/^[[:space:]]+|[[:space:]]+$/, "", $2); print $2; exit}' "$HOME/BirdNET-Pi/birdnet.conf" 2>/dev/null || true)"

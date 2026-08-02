@@ -21,6 +21,19 @@ tail -f /var/log/birdnet-solar-toolkit/battery_logs/battery_$(date +%F).csv
 
 The IÂ²C scan should show `42`. If it appears on another bus or address, edit the service `ExecStart` to add `--i2c-bus` or `--i2c-address`, then restart the service.
 
+## Low-battery shutdown and Pi 5 RTC wake
+
+`birdnet-rtc-power-policy.service` checks the HAT battery level once per minute. At **20%** it sets the Pi 5's internal RTC alarm for the next **06:00** local time and performs a clean shutdown. It leaves a 30-minute grace period after a boot so the station does not immediately shut down again.
+
+On a Raspberry Pi 5, the installer applies the necessary bootloader settings automatically. Reboot once after installation to activate them.
+
+Verify the policy service:
+
+```bash
+sudo systemctl status birdnet-rtc-power-policy.service
+sudo journalctl -u birdnet-rtc-power-policy.service --no-pager -n 20
+```
+
 ## Export BirdNET-Pi detections to USB
 
 After running the installer, insert a blank USB drive formatted as **FAT32** and run:

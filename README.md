@@ -33,6 +33,8 @@ tail -f /var/log/birdnet-solar-toolkit/battery_logs/battery_$(date +%F).csv
 
 ### Export BirdNET-Pi detections to USB
 
+**Field visit order:** export and safely remove the USB data first. Only then install an update or reboot the station.
+
 Insert a blank USB drive formatted as **FAT32**, then run:
 
 ```bash

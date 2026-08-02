@@ -23,6 +23,16 @@ systemctl status birdnet-ups-logger.service
 tail -f /var/log/birdnet-solar-toolkit/battery_logs/battery_$(date +%F).csv
 ```
 
+### Export BirdNET-Pi detections to USB
+
+Insert a writable USB drive, then run:
+
+```bash
+export-birdnet-detections
+```
+
+The export creates a dated CSV and a SQLite database backup in `Logan_City_Council/<station name>/` on the USB drive.
+
 See [UPS HAT (B) deployment and troubleshooting](docs/ups-hat-b.md) for the CSV format and I²C checks.
 
 ## Hardware

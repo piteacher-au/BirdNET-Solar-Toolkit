@@ -36,6 +36,8 @@ sudo journalctl -u birdnet-rtc-power-policy.service --no-pager -n 20
 
 ## Export BirdNET-Pi detections to USB
 
+**Field visit order:** export and safely remove the USB data before installing an update or rebooting the station. This prevents an update or restart interrupting a transfer.
+
 After running the installer, insert a blank USB drive formatted as **FAT32** and run:
 
 ```bash

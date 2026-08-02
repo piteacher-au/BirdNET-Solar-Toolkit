@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# UPS HAT runtime data
+battery_logs/*.csv
+!battery_logs/.gitkeep

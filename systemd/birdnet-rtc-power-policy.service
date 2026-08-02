@@ -1,0 +1,15 @@
+[Unit]
+Description=BirdNET Solar Toolkit low-battery shutdown and Pi 5 RTC wake policy
+After=birdnet-ups-logger.service time-sync.target
+Wants=time-sync.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/birdnet-solar-toolkit/ups_hat_b
+ExecStart=/usr/bin/python3 /opt/birdnet-solar-toolkit/ups_hat_b/power_policy.py --threshold 20 --wake-time 06:00
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

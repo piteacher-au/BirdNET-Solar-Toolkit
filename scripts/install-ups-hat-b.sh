@@ -13,7 +13,7 @@ fi
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y git python3 python3-smbus i2c-tools
+apt-get install -y git python3 python3-smbus i2c-tools sqlite3
 
 if ! getent group i2c >/dev/null; then groupadd --system i2c; fi
 if ! id -u birdnet >/dev/null 2>&1; then useradd --system --create-home --home-dir /var/lib/birdnet --groups i2c birdnet; fi
@@ -29,6 +29,7 @@ fi
 raspi-config nonint do_i2c 0 || true
 install -d -o birdnet -g birdnet -m 0755 /var/log/birdnet-solar-toolkit/battery_logs
 install -m 0644 "${DESTINATION}/systemd/${SERVICE_NAME}" "/etc/systemd/system/${SERVICE_NAME}"
+install -m 0755 "${DESTINATION}/scripts/export-birdnet-detections.sh" /usr/local/bin/export-birdnet-detections
 systemctl daemon-reload
 systemctl enable --now "${SERVICE_NAME}"
-echo "UPS HAT (B) logger installed. Verify it with: systemctl status ${SERVICE_NAME}"
+echo "UPS HAT (B) logger installed. Export detections with: export-birdnet-detections"
